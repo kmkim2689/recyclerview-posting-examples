@@ -27,6 +27,11 @@ class BenefitAdapter(
         return viewHolder.view
     }
 
+    fun refreshBenefitData(newBenefits: List<BenefitListItem>) {
+        benefits = newBenefits
+        notifyDataSetChanged()
+    }
+
     private fun generateViewHolder(
         position: Int,
         convertView: View?,
@@ -47,10 +52,12 @@ class BenefitAdapter(
         val holder: BenefitScreenViewHolder =
             when (viewType) {
                 BenefitListViewItem.VIEW_TYPE_BENEFIT -> {
+                    Log.i("BenefitAdapter", "createViewHolder: benefit")
                     BenefitScreenViewHolder.BenefitViewHolder(view)
                 }
 
                 BenefitListViewItem.VIEW_TYPE_ADVERTISEMENT -> {
+                    Log.i("BenefitAdapter", "createViewHolder: advertisement")
                     BenefitScreenViewHolder.AdvertisementViewHolder(view)
                 }
 
@@ -72,11 +79,6 @@ class BenefitAdapter(
                 viewHolder.bind(item as BenefitListViewItem.Advertisement)
             }
         }
-    }
-
-    fun refreshBenefitData(newBenefits: List<BenefitListItem>) {
-        benefits = newBenefits
-        notifyDataSetChanged()
     }
 
     private fun generateItemView(viewType: Int, parent: ViewGroup): View {
