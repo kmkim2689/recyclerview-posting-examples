@@ -2,12 +2,13 @@ package com.kmkim.rvposting
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class BenefitsActivity : AppCompatActivity() {
     private val benefitRepository = BenefitRepository()
-    private val adapter = BenefitAdapter(benefitRepository.benefits)
+    private val adapter = BenefitRecyclerViewAdapter(benefitRepository.benefits)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +18,9 @@ class BenefitsActivity : AppCompatActivity() {
     }
 
     private fun initializeAdapter() {
-        val benefitsList = findViewById<ListView>(R.id.lv_benefits)
+        val benefitsList = findViewById<RecyclerView>(R.id.rv_benefits)
         benefitsList.adapter = adapter
+        benefitsList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initializeButtons() {
@@ -50,9 +52,3 @@ class BenefitsActivity : AppCompatActivity() {
         )
     }
 }
-
-
-
-
-
-

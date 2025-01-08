@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
 
-class BenefitAdapter(
+class BenefitListViewAdapter(
     private var benefits: List<BenefitListItem>,
 ) : BaseAdapter() {
     override fun getCount(): Int = benefits.count()

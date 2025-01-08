@@ -7,15 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".BenefitsActivity">
 
-    <ListView
-        android:id="@+id/lv_benefits"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_benefits"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:footerDividersEnabled="false"
-        android:divider="@null"/>
+        tools:listitem="@layout/item_benefit"/>
 
     <Button
         android:id="@+id/btn_alter_position"
