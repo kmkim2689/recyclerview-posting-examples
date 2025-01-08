@@ -16,6 +16,8 @@ class BenefitAdapter(
 
     override fun getItemViewType(position: Int): Int = benefits[position].viewItem.viewType
 
+    override fun getViewTypeCount(): Int = NUMBER_OF_VIEW_TYPES
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = when (val viewType = getItemViewType(position)) {
             BenefitListViewItem.VIEW_TYPE_BENEFIT -> View.inflate(parent.context, R.layout.item_benefit, null)
@@ -39,5 +41,9 @@ class BenefitAdapter(
     fun refreshBenefitData(newBenefits: List<BenefitListItem>) {
         benefits = newBenefits
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val NUMBER_OF_VIEW_TYPES = 2
     }
 }
