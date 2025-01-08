@@ -21,22 +21,57 @@ class BenefitAdapter(
     override fun getViewTypeCount(): Int = NUMBER_OF_VIEW_TYPES
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val viewType = getItemViewType(position)
-        val view = convertView ?: generateItemView(viewType, parent)
+        val viewHolder = generateViewHolder(position, convertView, parent)
+        bindViewHolder(viewHolder, position)
 
-        when (val viewItem = getItem(position)) {
-            is BenefitListViewItem.Benefit -> {
-                view.findViewById<TextView>(R.id.tv_benefit_button_title).text = viewItem.title
-                view.findViewById<TextView>(R.id.tv_benefit_button_description).text =
-                    viewItem.description
+        return viewHolder.view
+    }
+
+    private fun generateViewHolder(
+        position: Int,
+        convertView: View?,
+        parent: ViewGroup,
+    ): BenefitScreenViewHolder {
+        val viewType = getItemViewType(position)
+        val viewHolder =
+            convertView?.tag as BenefitScreenViewHolder? ?: createViewHolder(viewType, parent)
+
+        return viewHolder
+    }
+
+    private fun createViewHolder(
+        viewType: Int,
+        parent: ViewGroup
+    ): BenefitScreenViewHolder {
+        val view = generateItemView(viewType, parent)
+        val holder: BenefitScreenViewHolder =
+            when (viewType) {
+                BenefitListViewItem.VIEW_TYPE_BENEFIT -> {
+                    BenefitScreenViewHolder.BenefitViewHolder(view)
+                }
+
+                BenefitListViewItem.VIEW_TYPE_ADVERTISEMENT -> {
+                    BenefitScreenViewHolder.AdvertisementViewHolder(view)
+                }
+
+                else -> throw IllegalArgumentException("Unknown view type")
             }
 
-            is BenefitListViewItem.Advertisement -> {
-                view.findViewById<TextView>(R.id.tv_advertisement).text = viewItem.content
+        view.tag = holder
+        return holder
+    }
+
+    private fun bindViewHolder(viewHolder: BenefitScreenViewHolder, position: Int) {
+        val item = getItem(position)
+        when (viewHolder) {
+            is BenefitScreenViewHolder.BenefitViewHolder -> {
+                viewHolder.bind(item as BenefitListViewItem.Benefit)
+            }
+
+            is BenefitScreenViewHolder.AdvertisementViewHolder -> {
+                viewHolder.bind(item as BenefitListViewItem.Advertisement)
             }
         }
-
-        return view
     }
 
     fun refreshBenefitData(newBenefits: List<BenefitListItem>) {
@@ -73,3 +108,4 @@ class BenefitAdapter(
         private const val NUMBER_OF_VIEW_TYPES = 2
     }
 }
+
