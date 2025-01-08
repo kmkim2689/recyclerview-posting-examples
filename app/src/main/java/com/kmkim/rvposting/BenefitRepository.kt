@@ -29,7 +29,13 @@ class BenefitRepository {
             BenefitListItem(24,  BenefitListViewItem.Advertisement(6, "광고 보고 가시죠 6")),
             BenefitListItem(25, BenefitListViewItem.Benefit(19, "행운 퀴즈15", "추가 혜택 보기")),
             BenefitListItem(26, BenefitListViewItem.Benefit(20, "행운 퀴즈16", "추가 혜택 보기")),
-        )
+            BenefitListItem(27, BenefitListViewItem.Benefit(21, "행운 퀴즈17", "추가 혜택 보기")),
+        ) + (28..2000).map {
+            BenefitListItem(
+                it.toLong(),
+                BenefitListViewItem.Benefit(it.toLong(), "행운 퀴즈$it", "추가 혜택 보기")
+            )
+        }
         private set
 
     fun updateBenefitTitle(id: Long, newTitle: String) {
