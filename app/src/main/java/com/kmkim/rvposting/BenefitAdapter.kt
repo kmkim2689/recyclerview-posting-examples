@@ -1,5 +1,6 @@
 package com.kmkim.rvposting
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,16 +47,24 @@ class BenefitAdapter(
     private fun generateItemView(viewType: Int, parent: ViewGroup): View {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            BenefitListViewItem.VIEW_TYPE_BENEFIT -> inflater.inflate(
-                R.layout.item_benefit,
-                parent,
-                false
-            )
-            BenefitListViewItem.VIEW_TYPE_ADVERTISEMENT -> inflater.inflate(
-                R.layout.item_advertisement,
-                parent,
-                false
-            )
+            BenefitListViewItem.VIEW_TYPE_BENEFIT -> {
+                Log.i("BenefitAdapter", "generateItemView: benefit")
+                inflater.inflate(
+                    R.layout.item_benefit,
+                    parent,
+                    false
+                )
+            }
+
+            BenefitListViewItem.VIEW_TYPE_ADVERTISEMENT -> {
+                Log.i("BenefitAdapter", "generateItemView: advertisement")
+                inflater.inflate(
+                    R.layout.item_advertisement,
+                    parent,
+                    false
+                )
+            }
+
             else -> throw RuntimeException("Unknown view type")
         }
     }
