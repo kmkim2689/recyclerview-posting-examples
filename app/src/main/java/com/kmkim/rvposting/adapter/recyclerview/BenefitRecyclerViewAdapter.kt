@@ -10,7 +10,10 @@ import com.kmkim.rvposting.R
 class BenefitRecyclerViewAdapter(
     private var benefits: List<BenefitListItem>,
 ) : RecyclerView.Adapter<BenefitScreenRecyclerViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BenefitScreenRecyclerViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BenefitScreenRecyclerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val viewHolder = when (viewType) {
             BenefitListViewItem.VIEW_TYPE_BENEFIT -> {
@@ -53,5 +56,21 @@ class BenefitRecyclerViewAdapter(
     fun refreshBenefitData(newBenefits: List<BenefitListItem>) {
         benefits = newBenefits
         notifyDataSetChanged()
+    }
+
+    fun refreshBenefitItem(position: Int, newBenefits: List<BenefitListItem>) {
+        benefits = newBenefits
+        notifyItemChanged(position)
+    }
+
+    fun changeBenefitItemPosition(
+        prevPosition: Int,
+        newPosition: Int,
+        newBenefits: List<BenefitListItem>,
+    ) {
+        benefits = newBenefits
+        notifyItemChanged(prevPosition)
+        notifyItemChanged(newPosition)
+//        notifyItemMoved(prevPosition, newPosition)
     }
 }

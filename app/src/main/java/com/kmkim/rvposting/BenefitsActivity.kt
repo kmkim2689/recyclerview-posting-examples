@@ -3,7 +3,6 @@ package com.kmkim.rvposting
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kmkim.rvposting.adapter.recyclerview.BenefitRecyclerViewAdapter
 
@@ -28,27 +27,27 @@ class BenefitsActivity : AppCompatActivity() {
         val buttonAlterPosition = findViewById<Button>(R.id.btn_alter_position)
 
         buttonAlterTitle.setOnClickListener {
-            alterBenefitTitle()
-            adapter.refreshBenefitData(benefitRepository.benefits)
+            alterBenefitTitle(3, "변경 완!")
+            adapter.refreshBenefitItem(2, benefitRepository.benefits)
         }
 
         buttonAlterPosition.setOnClickListener {
-            alterBenefitData()
-            adapter.refreshBenefitData(benefitRepository.benefits)
+            alterBenefitData(3, 0)
+            adapter.changeBenefitItemPosition(2, 0, benefitRepository.benefits)
         }
     }
 
-    private fun alterBenefitTitle() {
+    private fun alterBenefitTitle(id: Long, newTitle: String) {
         benefitRepository.updateBenefitTitle(
-            id = 3,
-            newTitle = "변경 완!",
+            id = id,
+            newTitle = newTitle,
         )
     }
 
-    private fun alterBenefitData() {
+    private fun alterBenefitData(id: Long, newPosition: Int) {
         benefitRepository.updateBenefitPosition(
-            id = 3,
-            newPosition = 0,
+            id = id,
+            newPosition = newPosition,
         )
     }
 }
