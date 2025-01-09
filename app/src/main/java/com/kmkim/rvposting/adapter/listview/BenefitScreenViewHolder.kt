@@ -1,7 +1,9 @@
-package com.kmkim.rvposting
+package com.kmkim.rvposting.adapter.listview
 
 import android.view.View
 import android.widget.TextView
+import com.kmkim.rvposting.BenefitListViewItem
+import com.kmkim.rvposting.R
 
 sealed class BenefitScreenViewHolder(val view: View) {
     class BenefitViewHolder(view: View) : BenefitScreenViewHolder(view) {

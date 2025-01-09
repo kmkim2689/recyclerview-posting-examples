@@ -1,10 +1,13 @@
-package com.kmkim.rvposting
+package com.kmkim.rvposting.adapter.listview
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.kmkim.rvposting.BenefitListItem
+import com.kmkim.rvposting.BenefitListViewItem
+import com.kmkim.rvposting.R
 
 class BenefitListViewAdapter(
     private var benefits: List<BenefitListItem>,
@@ -109,4 +112,3 @@ class BenefitListViewAdapter(
         private const val NUMBER_OF_VIEW_TYPES = 2
     }
 }
-

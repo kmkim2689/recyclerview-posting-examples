@@ -5,6 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kmkim.rvposting.adapter.recyclerview.BenefitRecyclerViewAdapter
 
 class BenefitsActivity : AppCompatActivity() {
     private val benefitRepository = BenefitRepository()
@@ -20,7 +21,6 @@ class BenefitsActivity : AppCompatActivity() {
     private fun initializeAdapter() {
         val benefitsList = findViewById<RecyclerView>(R.id.rv_benefits)
         benefitsList.adapter = adapter
-        benefitsList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initializeButtons() {
