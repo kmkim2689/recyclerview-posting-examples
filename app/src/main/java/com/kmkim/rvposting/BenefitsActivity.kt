@@ -9,7 +9,7 @@ import com.kmkim.rvposting.adapter.recyclerview.rvadapter.BenefitRecyclerViewAda
 
 class BenefitsActivity : AppCompatActivity() {
     private val benefitRepository = BenefitRepository()
-    private val adapter = BenefitRecyclerViewAdapter().apply {
+    private val adapter = BenefitListAdapter().apply {
         submitBenefitData(benefitRepository.benefits)
     }
 
