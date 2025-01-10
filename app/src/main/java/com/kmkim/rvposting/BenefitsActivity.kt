@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.kmkim.rvposting.adapter.recyclerview.BenefitRecyclerViewAdapter
+import com.kmkim.rvposting.adapter.recyclerview.listadapter.BenefitListAdapter
+import com.kmkim.rvposting.adapter.recyclerview.rvadapter.BenefitRecyclerViewAdapter
 
 class BenefitsActivity : AppCompatActivity() {
     private val benefitRepository = BenefitRepository()
-    private val adapter = BenefitRecyclerViewAdapter(benefitRepository.benefits)
+    private val adapter = BenefitRecyclerViewAdapter().apply {
+        submitBenefitData(benefitRepository.benefits)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +30,13 @@ class BenefitsActivity : AppCompatActivity() {
         val buttonAlterPosition = findViewById<Button>(R.id.btn_alter_position)
 
         buttonAlterTitle.setOnClickListener {
-            alterBenefitTitle(3, "변경 완!")
-            adapter.refreshBenefitItem(2, benefitRepository.benefits)
+            alterBenefitTitle(3, "변경 완!!!")
+            adapter.submitBenefitData(benefitRepository.benefits)
         }
 
         buttonAlterPosition.setOnClickListener {
             alterBenefitData(3, 0)
-            adapter.changeBenefitItemPosition(2, 0, benefitRepository.benefits)
+            adapter.submitBenefitData(benefitRepository.benefits)
         }
     }
 

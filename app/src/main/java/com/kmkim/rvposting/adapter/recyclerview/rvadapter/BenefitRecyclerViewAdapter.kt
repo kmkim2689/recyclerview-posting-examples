@@ -1,15 +1,19 @@
-package com.kmkim.rvposting.adapter.recyclerview
+package com.kmkim.rvposting.adapter.recyclerview.rvadapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.kmkim.rvposting.BenefitListItem
 import com.kmkim.rvposting.BenefitListViewItem
 import com.kmkim.rvposting.R
+import com.kmkim.rvposting.adapter.recyclerview.BenefitScreenRecyclerViewHolder
+import com.kmkim.rvposting.adapter.recyclerview.diffutil.BenefitDiffUtilCallback
 
-class BenefitRecyclerViewAdapter(
-    private var benefits: List<BenefitListItem>,
-) : RecyclerView.Adapter<BenefitScreenRecyclerViewHolder>() {
+class BenefitRecyclerViewAdapter
+    : RecyclerView.Adapter<BenefitScreenRecyclerViewHolder>() {
+    private val asyncListDiffer = AsyncListDiffer(this, BenefitDiffUtilCallback())
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -33,6 +37,7 @@ class BenefitRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: BenefitScreenRecyclerViewHolder, position: Int) {
+        val benefits = asyncListDiffer.currentList
         when (holder) {
             is BenefitScreenRecyclerViewHolder.BenefitViewHolder -> {
                 holder.bind(benefits[position].viewItem as BenefitListViewItem.Benefit)
@@ -44,31 +49,16 @@ class BenefitRecyclerViewAdapter(
         }
     }
 
-    override fun getItemCount(): Int = benefits.count()
+    override fun getItemCount(): Int = asyncListDiffer.currentList.count()
 
     override fun getItemViewType(position: Int): Int {
-        return when (benefits[position].viewItem) {
+        return when (asyncListDiffer.currentList[position].viewItem) {
             is BenefitListViewItem.Benefit -> BenefitListViewItem.VIEW_TYPE_BENEFIT
             is BenefitListViewItem.Advertisement -> BenefitListViewItem.VIEW_TYPE_ADVERTISEMENT
         }
     }
 
-    fun refreshBenefitData(newBenefits: List<BenefitListItem>) {
-        benefits = newBenefits
-        notifyDataSetChanged()
-    }
-
-    fun refreshBenefitItem(position: Int, newBenefits: List<BenefitListItem>) {
-        benefits = newBenefits
-        notifyItemChanged(position)
-    }
-
-    fun changeBenefitItemPosition(
-        prevPosition: Int,
-        newPosition: Int,
-        newBenefits: List<BenefitListItem>,
-    ) {
-        benefits = newBenefits
-        notifyItemMoved(prevPosition, newPosition)
+    fun submitBenefitData(benefits: List<BenefitListItem>) {
+        asyncListDiffer.submitList(benefits)
     }
 }
