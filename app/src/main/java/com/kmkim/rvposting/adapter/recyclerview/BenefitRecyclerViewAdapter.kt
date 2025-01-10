@@ -69,8 +69,6 @@ class BenefitRecyclerViewAdapter(
         newBenefits: List<BenefitListItem>,
     ) {
         benefits = newBenefits
-        notifyItemChanged(prevPosition)
-        notifyItemChanged(newPosition)
-//        notifyItemMoved(prevPosition, newPosition)
+        notifyItemMoved(prevPosition, newPosition)
     }
 }
